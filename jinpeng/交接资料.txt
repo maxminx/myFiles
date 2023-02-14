@@ -1,0 +1,56 @@
+车标·性别·背包.多标签人员结构化
+
+1：进入78服务器的pytorch训练环境，docker exec -it pysyc1.7 bash
+2：进入训练目录，cd /workspace/person_reID/
+
+3:训练车标，./runcar.sh
+	车标数据集位置brand/train
+	训练好的模型位置checkpoint/car
+	待清洗的车标数据(潍坊车标数据还没清洗完的部分，在黄日嘉那)
+
+4:训练性别，./rungender.sh
+	性别数据位置gender/train
+	训练好的模型位置checkpoint/gender
+
+5:训练背包，./runbackbag.sh
+	背包数据位置backbag/train
+	训练好的模型位置checkpoint/backbag
+
+6:多标签学习一个模型同时输出人员结构化多个属性
+	清洗好的数据/workspace/person-pa100k/PA-100K
+	进入 /workspace/person-pa100k
+	训练模型./train.sh
+	标签序号：如下
+	男 女
+	老年 中年 少年
+	正面 侧面 背面
+	不戴帽子 戴帽子
+	不戴眼镜 戴眼镜
+	没有手提包 有手提包
+	没有单肩包 有单肩包
+	没有背包 有背包
+	短袖 长袖
+	长裤 短裤 裙子
+
+
+部署：训练好的模型移动到139服务器相应位置，替换模型路径即可
+相关文件：
+车标，ai/car_brand.py
+性别，ai/human_gender.py
+背包定义的类也在ai/human_gender.py
+多标签的人员结构化，ai/human_attributes.py
+
+个人的相关密码
+笔记本：jinpeng0506
+其他个人相关的工作密码也是jinpeng0506
+
+
+
+
+
+
+
+
+
+
+

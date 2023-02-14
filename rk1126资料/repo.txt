@@ -1,0 +1,57 @@
+﻿repo代码下载步骤
+
+mkdir xxx；cd xxx
+git clone ssh://repo@192.168.255.32:9817/linux_repo/repo.git
+
+##################rv1109_ipc###############
+./repo/repo init -u ssh://repo@192.168.255.32:9817/linux_repo/manifest -b linux -m rv1126_rv1109_linux_release.xml
+.repo/repo/repo sync -c -j8
+.repo/repo/repo start rv1109_ipc_tp --all
+
+
+########## 边缘计算盒子/V12 ##############
+1.先全部切换到默认分支
+.repo/repo/repo start rv1109_ipc_tp --all
+
+2.涉及修改的获取更新信息
+.repo/repo/repo forall \
+kernel \
+buildroot \
+device/rockchip \
+external/rkmedia \
+external/isp2-ipc \
+external/rockface \
+external/rknpu \
+external/rockx \
+app/dbserver \
+app/ipc-daemon \
+app/ipcweb-backend \
+app/libIPCProtocol \
+app/mediaserver \
+app/netserver \
+app/telpo \
+-c "git fetch"
+
+3.涉及修改的切换到V12分支
+.repo/repo/repo forall \
+buildroot \
+device/rockchip \
+external/rkmedia \
+external/isp2-ipc \
+external/rockface \
+external/rknpu \
+external/rockx \
+app/dbserver \
+app/ipc-daemon \
+app/ipcweb-backend \
+app/libIPCProtocol \
+app/mediaserver \
+app/netserver \
+app/telpo \
+-c "git checkout V12"
+
+4.编译
+./mk.sh 选V12   选5   版本号直接回车（默认1.0.0）
+
+
+
